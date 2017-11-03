@@ -23,7 +23,7 @@ public class AppMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		PlanetController controller = new PlanetController();
+		PlanetController controller = new PlanetController(primaryStage);
 
 		FXMLLoader loader = new FXMLLoader(controller.getClass().getResource("PlanetView.fxml"));
 		loader.setController(controller);

@@ -14,7 +14,16 @@ public class Planet {
 	SimpleDoubleProperty meanSurfaceTempC;
 	SimpleDoubleProperty meanSurfaceTempF;
 	SimpleIntegerProperty numMoons;
-
+	
+	public Planet() {
+		this.planetName = new SimpleStringProperty();
+		this.planetDiameterKm = new SimpleDoubleProperty();
+		this.planetDiameterM = new SimpleDoubleProperty();
+		this.meanSurfaceTempC = new SimpleDoubleProperty();
+		this.meanSurfaceTempF = new SimpleDoubleProperty();
+		this.numMoons = new SimpleIntegerProperty();
+	}
+	
 	public Planet(String planetName, Double planetDiameterKm, Double planetDiameterM, Double meanSurfaceTempC, Double meanSurfaceTempF, int numMoons) {
 		this.planetName = new SimpleStringProperty();
 		this.planetDiameterKm = new SimpleDoubleProperty();
@@ -25,6 +34,10 @@ public class Planet {
 
 		setPlanetName(planetName);
 		setPlanetDiameterKm(planetDiameterKm);
+		setPlanetDiameterM(planetDiameterM);
+		setPlanetSurfaceTempC(meanSurfaceTempC);
+		setPlanetSurfaceTempF(meanSurfaceTempF);
+		setNumMoons(numMoons);
 
 	}
 

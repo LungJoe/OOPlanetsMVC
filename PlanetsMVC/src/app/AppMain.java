@@ -2,6 +2,7 @@ package app;
 
 import java.io.IOException;
 
+import Models.Planet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,8 +23,8 @@ public class AppMain extends Application {
 	//FXML startup method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-		PlanetController controller = new PlanetController(primaryStage);
+		Planet planet = new Planet();
+		PlanetController controller = new PlanetController(primaryStage, planet);
 
 		FXMLLoader loader = new FXMLLoader(controller.getClass().getResource("PlanetView.fxml"));
 		loader.setController(controller);

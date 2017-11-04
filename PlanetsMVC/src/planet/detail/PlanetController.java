@@ -19,7 +19,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import mvc.PersonController.FirstNameChangeListener;
 
 public class PlanetController implements Initializable {
 
@@ -43,9 +42,11 @@ public class PlanetController implements Initializable {
 	
 	private Stage stage;
 	private Planet planet;
+	private boolean skipLabelMessage = true;
 	
-	public PlanetController(Stage stage) {
+	public PlanetController(Stage stage, Planet planet) {
 		this.stage = stage;
+		this.planet = planet;
 	}
 	
 	@FXML
@@ -75,11 +76,11 @@ public class PlanetController implements Initializable {
     	fancyPlanetName.textProperty().bind(planet.firstNameProperty());
     	
     	//init first name UI field to the model data
-    	firstName.setText(person.getFirstName());
+    	planetName.setText(planet.getPlanetName());
     	//attach a listener for when the user changes the UI field data. 
     	//we want UI changes to go through validation and if ok then change the model data.
     	//we can do this by simply calling our model's setter since it is already wired for validation
-    	firstName.textProperty().addListener(new PlanetNameChangeListener());
+    	planetName.textProperty().addListener(new PlanetNameChangeListener());
 	}
 
 	

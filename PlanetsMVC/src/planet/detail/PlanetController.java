@@ -79,7 +79,7 @@ public class PlanetController implements Initializable {
     	//attach a listener for when the user changes the UI field data. 
     	//we want UI changes to go through validation and if ok then change the model data.
     	//we can do this by simply calling our model's setter since it is already wired for validation
-    	firstName.textProperty().addListener(new FirstNameChangeListener());
+    	firstName.textProperty().addListener(new PlanetNameChangeListener());
 	}
 
 	

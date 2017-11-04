@@ -1,35 +1,41 @@
 package Models;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
 public class Planet {
 	Image planetImage;
-	String planetName;
-	Double planetDiameterKm;
-	Double planetDiameterM;
-	Double meanSurfaceTempC;
-	Double meanSurfaceTempF;
-	int numMoons;
+	SimpleStringProperty planetName;
+	SimpleDoubleProperty planetDiameterKm;
+	SimpleDoubleProperty planetDiameterM;
+	SimpleDoubleProperty meanSurfaceTempC;
+	SimpleDoubleProperty meanSurfaceTempF;
+	SimpleIntegerProperty numMoons;
 
-	public Planet(Image planetImage, String planetName, Double planetDiameterKm, Double planetDiameterM, Double meanSurfaceTempC, Double meanSurfaceTempF, int numMoons) {
-		this.planetImage = planetImage;
-		this.planetName = planetName;
-		this.planetDiameterKm = planetDiameterKm;
-		this.planetDiameterM = planetDiameterM;
-		this.meanSurfaceTempC = meanSurfaceTempC;
-		this.meanSurfaceTempF = meanSurfaceTempF;
-		this.numMoons = numMoons;
+	public Planet(String planetName, Double planetDiameterKm, Double planetDiameterM, Double meanSurfaceTempC, Double meanSurfaceTempF, int numMoons) {
+		this.planetName = new SimpleStringProperty();
+		this.planetDiameterKm = new SimpleDoubleProperty();
+		this.planetDiameterM = new SimpleDoubleProperty();
+		this.meanSurfaceTempC = new SimpleDoubleProperty();
+		this.meanSurfaceTempF = new SimpleDoubleProperty();
+		this.numMoons = new SimpleIntegerProperty();
+
+		setPlanetName(planetName);
+		setPlanetDiameterKm(planetDiameterKm);
+
 	}
 
 	public void savePlanet() {
-		
+		//TODO
 	}
 
 	public void loadPlanet() {
-		
+		//TODO
 	}
-	
+
 	public Image getPlanetImage() {
 		return planetImage;
 	}
@@ -38,56 +44,63 @@ public class Planet {
 		this.planetImage = planetImage;
 	}
 
-	public String getPlanetName() {
-		return planetName;
+	public void setPlanetName(String planetName) {
+		if (!isValidName(planetName))
+			throw new InvalidPlanetException("Invalid name");
+		this.planetName.setValue(planetName);
 	}
 
-	public void setPlanetName(String planetName) {
-		this.planetName = planetName;
+	public void setPlanetDiameterKm(Double diameter) {
+		this.planetDiameterKm.setValue(diameter);
+	}
+
+	public void setPlanetDiameterM(Double diameter) {
+		this.planetDiameterM.setValue(diameter);
+	}
+
+	public void setPlanetSurfaceTempC(Double celcius) {
+		this.meanSurfaceTempC.setValue(celcius);
+	}
+
+	public void setPlanetSurfaceTempF(Double fahrenheit) {
+		this.meanSurfaceTempF.setValue(fahrenheit);
+	}
+
+	public void setNumMoons(int moonCount) {
+		this.numMoons.setValue(moonCount);
+	}
+
+	public String getPlanetName() {
+		return planetName.getValue();
 	}
 
 	public Double getPlanetDiameterKm() {
-		return planetDiameterKm;
-	}
-
-	public void setPlanetDiameterKm(Double planetDiameterKm) {
-		this.planetDiameterKm = planetDiameterKm;
+		return planetDiameterKm.getValue();
 	}
 
 	public Double getPlanetDiameterM() {
-		return planetDiameterM;
+		return planetDiameterM.getValue();
 	}
 
-	public void setPlanetDiameterM(Double planetDiameterM) {
-		this.planetDiameterM = planetDiameterM;
+	public Double getPlanetSurfaceTempC() {
+		return meanSurfaceTempC.getValue();
 	}
 
-	public Double getMeanSurfaceTempC() {
-		return meanSurfaceTempC;
-	}
-
-	public void setMeanSurfaceTempC(Double meanSurfaceTempC) {
-		this.meanSurfaceTempC = meanSurfaceTempC;
-	}
-
-	public Double getMeanSurfaceTempF() {
-		return meanSurfaceTempF;
-	}
-
-	public void setMeanSurfaceTempF(Double meanSurfaceTempF) {
-		this.meanSurfaceTempF = meanSurfaceTempF;
+	public Double getPlanetSurfaceTempF() {
+		return meanSurfaceTempF.getValue();
 	}
 
 	public int getNumMoons() {
-		return numMoons;
+		return numMoons.getValue();
+	}
+
+	public boolean isValidName(String name) {
+		//TODO
+		return true;
 	}
 
 	public StringProperty firstNameProperty() {
 		return planetName;
-	}
-	
-	public void setNumMoons(int numMoons) {
-		this.numMoons = numMoons;
 	}
 
 }

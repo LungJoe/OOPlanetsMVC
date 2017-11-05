@@ -108,8 +108,10 @@ public class Planet {
 	}
 
 	public boolean isValidName(String name) {
-		//TODO
-		return true;
+	    	System.out.println(name);
+	    	if(name.matches("^[a-zA-Z0-9 .-]+") && name.length() > 0 && name.length() < 256)
+	    	    return true;
+		return false;
 	}
 
 	public StringProperty firstNameProperty() {

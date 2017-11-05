@@ -42,7 +42,6 @@ public class PlanetController implements Initializable {
 	
 	private Stage stage;
 	private Planet planet;
-	private boolean skipLabelMessage = true;
 	
 	public PlanetController(Stage stage, Planet planet) {
 		this.stage = stage;
@@ -93,7 +92,7 @@ public class PlanetController implements Initializable {
 			try {
 				planet.setPlanetName(newValue);
 				if(!skipLabelMessage)
-					fancyPlanetName.setText("");
+					//fancyPlanetName.setText("");
 				skipLabelMessage = false;
 			} catch(InvalidPlanetException e) {
 				//System.err.println(e.getMessage());

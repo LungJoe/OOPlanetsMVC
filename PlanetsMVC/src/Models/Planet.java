@@ -26,7 +26,7 @@ public class Planet {
 		this.numMoons = new SimpleIntegerProperty();
 	}
 	
-	public Planet(String planetName, Double planetDiameterKm, Double planetDiameterM, Double meanSurfaceTempC, Double meanSurfaceTempF, int numMoons) {
+	public Planet(String planetName, Double planetDiameterKm, Double planetDiameterM, Double meanSurfaceTempC, Double meanSurfaceTempF, String numMoons) {
 		this.planetName = new SimpleStringProperty();
 		this.planetDiameterKm = new SimpleDoubleProperty();
 		this.planetDiameterM = new SimpleDoubleProperty();
@@ -88,8 +88,10 @@ public class Planet {
 		this.meanSurfaceTempF.setValue((this.meanSurfaceTempC.getValue() * (9.0/5.0)) + 32);
 	}
 
-	public void setNumMoons(int moonCount) {
-		this.numMoons.setValue(moonCount);
+	public void setNumMoons(String moonCount) {
+	    if(!isValidNumMoons(moonCount))
+		throw new InvalidPlanetException("Invalid Number of Moons");
+		this.numMoons.setValue(Integer.parseInt(moonCount));
 	}
 
 	public String getPlanetName() {
@@ -135,6 +137,15 @@ public class Planet {
 	    if(temperature.matches("^[0-9]+")) {
 		Double intTemp = Double.parseDouble(temperature);
 		if(intTemp >= -273.15 && intTemp <= 500.0)
+		    return true;
+	    }
+	    return false;
+	}
+	
+	private boolean isValidNumMoons(String numMoons) {
+	    if(numMoons.matches("^[0-9]+")) {
+		int intMoonCount = Integer.parseInt(numMoons);
+		if(intMoonCount >= 0 && intMoonCount <= 1000)
 		    return true;
 	    }
 	    return false;

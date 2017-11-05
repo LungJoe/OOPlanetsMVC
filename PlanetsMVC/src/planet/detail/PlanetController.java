@@ -76,6 +76,7 @@ public class PlanetController implements Initializable {
     	//but binding is ok with immutable UI field data types like Label
 	planetDiameterKM.setText("0");
 	planetMeanSurfaceTempC.setText("0");
+	planetNumberOfMoons.setText("0");
     	fancyPlanetName.textProperty().bind(planet.firstNameProperty());
     	planetDiameterM.textProperty().bind(planet.diameterMProperty().asString());
     	planetMeanSurfaceTempF.textProperty().bind(planet.tempFProperty().asString());
@@ -89,6 +90,7 @@ public class PlanetController implements Initializable {
     	planetName.textProperty().addListener(new PlanetNameChangeListener());
     	planetDiameterKM.textProperty().addListener(new PlanetDiameterChangeListener());
     	planetMeanSurfaceTempC.textProperty().addListener(new PlanetSurfaceTempListener());
+    	planetNumberOfMoons.textProperty().addListener(new PlanetMoonCountListener());
 	}
 
 	
@@ -101,7 +103,7 @@ public class PlanetController implements Initializable {
 			} catch(InvalidPlanetException e) {
 			    	Alert alert = new Alert(AlertType.INFORMATION);
 			    	alert.setTitle(e.getMessage());
-			    	alert.setHeaderText("The name you entered is not valid. See below for requirements.");
+			    	alert.setHeaderText("The name you entered is invalid. See below for requirements.");
 			    	alert.setContentText("Planet names may only contain: Alphanumeeric characters, periods, hyphens, and spaces.\n"
 			    		+ "Planet names may be no longer than 255 and no less than 1 character in length.");
 			    	alert.showAndWait();
@@ -119,9 +121,9 @@ public class PlanetController implements Initializable {
 			} catch(InvalidPlanetException e) {
 			    	Alert alert = new Alert(AlertType.INFORMATION);
 			    	alert.setTitle(e.getMessage());
-			    	alert.setHeaderText("The name you entered is not valid. See below for requirements.");
-			    	alert.setContentText("Planet names may only contain: Alphanumeeric characters, periods, hyphens, and spaces.\n"
-			    		+ "Planet names may be no longer than 255 and no less than 1 character in length.");
+			    	alert.setHeaderText("The diameter you input is invalid. See below for requirements.");
+			    	alert.setContentText("Planet Diameter may only contain numbers.\n"
+			    		+ "Planet diameter must be between 0 and 200000 KM.");
 			    	alert.showAndWait();
 			    	planetDiameterKM.setText(oldValue);
 			}
@@ -138,11 +140,30 @@ public class PlanetController implements Initializable {
 			} catch(InvalidPlanetException e) {
 			    	Alert alert = new Alert(AlertType.INFORMATION);
 			    	alert.setTitle(e.getMessage());
-			    	alert.setHeaderText("The name you entered is not valid. See below for requirements.");
-			    	alert.setContentText("Planet names may only contain: Alphanumeeric characters, periods, hyphens, and spaces.\n"
-			    		+ "Planet names may be no longer than 255 and no less than 1 character in length.");
+			    	alert.setHeaderText("The temperature you specified is invalid. See below for requirements.");
+			    	alert.setContentText("Planet Temperature may only contain numbers.\n"
+			    		+ "Planet temperature must be between -273.15 and 500.0 C.");
 			    	alert.showAndWait();
 			    	planetMeanSurfaceTempC.setText(oldValue);
+			}
+		}
+    	
+    }
+    
+    private class PlanetMoonCountListener implements ChangeListener<String> {
+	
+		@Override
+		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+			try {
+				planet.setNumMoons(newValue);
+			} catch(InvalidPlanetException e) {
+			    	Alert alert = new Alert(AlertType.INFORMATION);
+			    	alert.setTitle(e.getMessage());
+			    	alert.setHeaderText("The Number of Moons you specified is invalid. See below for requirements.");
+			    	alert.setContentText("Planet number of moons may only contain numbers.\n"
+			    		+ "Planet number of moons must be between 0 and 1000.");
+			    	alert.showAndWait();
+			    	planetNumberOfMoons.setText(oldValue);
 			}
 		}
     	

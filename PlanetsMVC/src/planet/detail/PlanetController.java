@@ -13,6 +13,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -85,22 +87,18 @@ public class PlanetController implements Initializable {
 	
     private class PlanetNameChangeListener implements ChangeListener<String> {
 		//need below boolean to keep error message around until we change the field
-		private boolean skipLabelMessage = false;
 
 		@Override
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setPlanetName(newValue);
-				if(!skipLabelMessage)
-					//fancyPlanetName.setText("");
-				skipLabelMessage = false;
 			} catch(InvalidPlanetException e) {
-				//System.err.println(e.getMessage());
-				fancyPlanetName.setText(e.getMessage());
-				skipLabelMessage = true;
-				//reset firstName to last good value
-				//Note this calls this changed event with the oldValue
-				//which is why we need bypass switch to avoid immediately clearing the error message
+			    	Alert alert = new Alert(AlertType.INFORMATION);
+			    	alert.setTitle(e.getMessage());
+			    	alert.setHeaderText("The name you entered is not valid. See below for requirements.");
+			    	alert.setContentText("Planet names may only contain: Alphanumeeric characters, periods, hyphens, and spaces.\n"
+			    		+ "Planet names may be no longer than 255 and no less than 1 character in length.");
+			    	alert.showAndWait();
 				planetName.setText(oldValue);
 			}
 		}

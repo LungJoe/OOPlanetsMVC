@@ -59,7 +59,7 @@ public class Planet {
 
 	public void setPlanetName(String planetName) {
 		if (!isValidName(planetName))
-			throw new InvalidPlanetException("Invalid name");
+			throw new InvalidPlanetException("Invalid Planet Name");
 		this.planetName.setValue(planetName);
 	}
 

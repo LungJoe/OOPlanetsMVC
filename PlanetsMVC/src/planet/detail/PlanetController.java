@@ -74,20 +74,26 @@ public class PlanetController implements Initializable {
     	//this is nice and simple BUT it does not call the setter, so validation does not occur
 		//firstName.textProperty().bind(person.firstNameProperty());
     	//but binding is ok with immutable UI field data types like Label
+	planetDiameterKM.setText("0");
+	planetMeanSurfaceTempC.setText("0");
     	fancyPlanetName.textProperty().bind(planet.firstNameProperty());
+    	planetDiameterM.textProperty().bind(planet.diameterMProperty().asString());
+    	planetMeanSurfaceTempF.textProperty().bind(planet.tempFProperty().asString());
     	
     	//init first name UI field to the model data
     	planetName.setText(planet.getPlanetName());
     	//attach a listener for when the user changes the UI field data. 
     	//we want UI changes to go through validation and if ok then change the model data.
     	//we can do this by simply calling our model's setter since it is already wired for validation
+    	
     	planetName.textProperty().addListener(new PlanetNameChangeListener());
+    	planetDiameterKM.textProperty().addListener(new PlanetDiameterChangeListener());
+    	planetMeanSurfaceTempC.textProperty().addListener(new PlanetSurfaceTempListener());
 	}
 
 	
     private class PlanetNameChangeListener implements ChangeListener<String> {
-		//need below boolean to keep error message around until we change the field
-
+	
 		@Override
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
@@ -100,6 +106,43 @@ public class PlanetController implements Initializable {
 			    		+ "Planet names may be no longer than 255 and no less than 1 character in length.");
 			    	alert.showAndWait();
 				planetName.setText(oldValue);
+			}
+		}
+    	
+    }
+    private class PlanetDiameterChangeListener implements ChangeListener<String> {
+	
+		@Override
+		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+			try {
+				planet.setPlanetDiameterKm(newValue);
+			} catch(InvalidPlanetException e) {
+			    	Alert alert = new Alert(AlertType.INFORMATION);
+			    	alert.setTitle(e.getMessage());
+			    	alert.setHeaderText("The name you entered is not valid. See below for requirements.");
+			    	alert.setContentText("Planet names may only contain: Alphanumeeric characters, periods, hyphens, and spaces.\n"
+			    		+ "Planet names may be no longer than 255 and no less than 1 character in length.");
+			    	alert.showAndWait();
+			    	planetDiameterKM.setText(oldValue);
+			}
+		}
+    	
+    }
+    
+    private class PlanetSurfaceTempListener implements ChangeListener<String> {
+	
+		@Override
+		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+			try {
+				planet.setPlanetSurfaceTempC(newValue);
+			} catch(InvalidPlanetException e) {
+			    	Alert alert = new Alert(AlertType.INFORMATION);
+			    	alert.setTitle(e.getMessage());
+			    	alert.setHeaderText("The name you entered is not valid. See below for requirements.");
+			    	alert.setContentText("Planet names may only contain: Alphanumeeric characters, periods, hyphens, and spaces.\n"
+			    		+ "Planet names may be no longer than 255 and no less than 1 character in length.");
+			    	alert.showAndWait();
+			    	planetMeanSurfaceTempC.setText(oldValue);
 			}
 		}
     	

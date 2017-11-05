@@ -1,9 +1,11 @@
 package Models;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
 
 public class Planet {
@@ -33,10 +35,10 @@ public class Planet {
 		this.numMoons = new SimpleIntegerProperty();
 
 		setPlanetName(planetName);
-		setPlanetDiameterKm(planetDiameterKm);
-		setPlanetDiameterM(planetDiameterM);
-		setPlanetSurfaceTempC(meanSurfaceTempC);
-		setPlanetSurfaceTempF(meanSurfaceTempF);
+		setPlanetDiameterKm(planetDiameterKm.toString());
+		setPlanetDiameterM();
+		setPlanetSurfaceTempC(meanSurfaceTempC.toString());
+		setPlanetSurfaceTempF();
 		setNumMoons(numMoons);
 
 	}
@@ -63,20 +65,27 @@ public class Planet {
 		this.planetName.setValue(planetName);
 	}
 
-	public void setPlanetDiameterKm(Double diameter) {
-		this.planetDiameterKm.setValue(diameter);
+	public void setPlanetDiameterKm(String diameter) {
+	    if(!isValidDiameterKM(diameter)) 
+		throw new InvalidPlanetException("Invalid Planet Diameter in KM");
+		this.planetDiameterKm.setValue(Integer.parseInt(diameter));
+		setPlanetDiameterM();
 	}
 
-	public void setPlanetDiameterM(Double diameter) {
-		this.planetDiameterM.setValue(diameter);
+
+	public void setPlanetDiameterM() {
+		this.planetDiameterM.setValue(this.planetDiameterKm.getValue()*0.621371);
 	}
 
-	public void setPlanetSurfaceTempC(Double celcius) {
-		this.meanSurfaceTempC.setValue(celcius);
+	public void setPlanetSurfaceTempC(String celcius) {
+	    	if(!isValidTempC(celcius)) 
+			throw new InvalidPlanetException("Invalid Planet Temperature in C");
+	    	this.meanSurfaceTempC.setValue(Double.parseDouble(celcius));
+	    	setPlanetSurfaceTempF();
 	}
 
-	public void setPlanetSurfaceTempF(Double fahrenheit) {
-		this.meanSurfaceTempF.setValue(fahrenheit);
+	public void setPlanetSurfaceTempF() {
+		this.meanSurfaceTempF.setValue((this.meanSurfaceTempC.getValue() * (9.0/5.0)) + 32);
 	}
 
 	public void setNumMoons(int moonCount) {
@@ -108,14 +117,39 @@ public class Planet {
 	}
 
 	public boolean isValidName(String name) {
-	    	System.out.println(name);
 	    	if(name.matches("^[a-zA-Z0-9 .-]+") && name.length() > 0 && name.length() < 256)
 	    	    return true;
 		return false;
 	}
+	
+	private boolean isValidDiameterKM(String diameter) {
+	    if(diameter.matches("^[0-9]+")) {
+		int intDiameter = Integer.parseInt(diameter);
+		if(intDiameter >= 0 && intDiameter <= 200000)
+		    return true;
+	    }
+	    return false;
+	}
+	
+	private boolean isValidTempC(String temperature) {
+	    if(temperature.matches("^[0-9]+")) {
+		Double intTemp = Double.parseDouble(temperature);
+		if(intTemp >= -273.15 && intTemp <= 500.0)
+		    return true;
+	    }
+	    return false;
+	}
 
 	public StringProperty firstNameProperty() {
 		return planetName;
+	}
+
+	public DoubleProperty diameterMProperty() {
+	    return planetDiameterM;
+	}
+
+	public DoubleProperty tempFProperty() {
+	    return meanSurfaceTempF;
 	}
 
 }

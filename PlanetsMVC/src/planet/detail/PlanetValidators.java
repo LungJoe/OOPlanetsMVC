@@ -12,13 +12,13 @@ public class PlanetValidators {
 	private static final int MAX_NAME_LENGTH = 255;
 	
 	private static final double MIN_DIAMETER = 0;
-	private static final double MAX_DIAMETER = 200_000;
+	private static final double MAX_DIAMETER = 200000;
 	
 	private static final double MIN_DEGREES = -273.15;
 	private static final double MAX_DEGREES = 500.0;
 	
 	private static final int MIN_MOONS  = 0;
-	private static final int MAX_MOONS = 1_000;
+	private static final int MAX_MOONS = 1000;
 	
 	public static boolean validatePlanetname(SimpleStringProperty planetName){
 		Pattern validNameCharacters = Pattern.compile("[^A-Za-z0-9 .-]");

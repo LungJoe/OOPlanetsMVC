@@ -21,7 +21,7 @@ public class AppMain extends Application {
 	}
 	
 	//FXML startup method
-	@Override
+	//@Override
 	public void start(Stage primaryStage) throws Exception {
 		Planet planet = new Planet();
 		PlanetController controller = new PlanetController(primaryStage, planet);

@@ -59,24 +59,24 @@ public class PlanetController implements Initializable {
 
 	@FXML
 	void loadPlanet(ActionEvent event) {
-		
+		planet.loadPlanet();
 	}
 
 	@FXML
 	void savePlanet(ActionEvent event) {
-		
+		planet.savePlanet();
 	}
 	
-    @Override
+    //@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//bind model fields to view fields
 
     	//this is nice and simple BUT it does not call the setter, so validation does not occur
 		//firstName.textProperty().bind(person.firstNameProperty());
     	//but binding is ok with immutable UI field data types like Label
-	planetDiameterKM.setText("0");
-	planetMeanSurfaceTempC.setText("0");
-	planetNumberOfMoons.setText("0");
+		planetDiameterKM.setText("");
+		planetMeanSurfaceTempC.setText("");
+		planetNumberOfMoons.setText("");
     	fancyPlanetName.textProperty().bind(planet.firstNameProperty());
     	planetDiameterM.textProperty().bind(planet.diameterMProperty().asString());
     	planetMeanSurfaceTempF.textProperty().bind(planet.tempFProperty().asString());
@@ -96,7 +96,7 @@ public class PlanetController implements Initializable {
 	
     private class PlanetNameChangeListener implements ChangeListener<String> {
 	
-		@Override
+		//@Override
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setPlanetName(newValue);
@@ -114,7 +114,7 @@ public class PlanetController implements Initializable {
     }
     private class PlanetDiameterChangeListener implements ChangeListener<String> {
 	
-		@Override
+		//@Override
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setPlanetDiameterKm(newValue);
@@ -133,7 +133,7 @@ public class PlanetController implements Initializable {
     
     private class PlanetSurfaceTempListener implements ChangeListener<String> {
 	
-		@Override
+		//@Override
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setPlanetSurfaceTempC(newValue);
@@ -152,7 +152,7 @@ public class PlanetController implements Initializable {
     
     private class PlanetMoonCountListener implements ChangeListener<String> {
 	
-		@Override
+		//@Override
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setNumMoons(newValue);

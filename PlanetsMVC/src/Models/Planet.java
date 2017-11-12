@@ -8,7 +8,8 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
 
-public class Planet {
+public class Planet{
+	PlanetHelper helper = new PlanetHelper();
 	Image planetImage;
 	SimpleStringProperty planetName;
 	SimpleDoubleProperty planetDiameterKm;
@@ -44,11 +45,11 @@ public class Planet {
 	}
 
 	public void savePlanet() {
-		//TODO
+		helper.savePlanet(this);
 	}
 
 	public void loadPlanet() {
-		//TODO
+		helper.loadPlanet(this);
 	}
 
 	public Image getPlanetImage() {
@@ -144,8 +145,8 @@ public class Planet {
 	
 	private boolean isValidNumMoons(String numMoons) {
 	    if(numMoons.matches("^[0-9]+")) {
-		int intMoonCount = Integer.parseInt(numMoons);
-		if(intMoonCount >= 0 && intMoonCount <= 1000)
+	    	int intMoonCount = Integer.parseInt(numMoons);
+	    	if(intMoonCount >= 0 && intMoonCount <= 1000)
 		    return true;
 	    }
 	    return false;

@@ -1,4 +1,4 @@
-package planet.tets;
+package planet.test;
 
 
 import planet.detail.PlanetValidators;

@@ -145,7 +145,6 @@ public class Planet{
 
 	public static class PlanetBuilder{
 		
-		private	Image planetImage;
 		private SimpleStringProperty planetName = new SimpleStringProperty();
 		private SimpleStringProperty filePath = new SimpleStringProperty();
 		private SimpleDoubleProperty planetDiameterKm = new SimpleDoubleProperty();
@@ -173,6 +172,11 @@ public class Planet{
 	    		throw new InvalidTemperatureException();
 	    	this.meanSurfaceTempC.setValue(Double.parseDouble(planetTemperature));
 			this.meanSurfaceTempF.setValue((this.meanSurfaceTempC.getValue() * (9.0/5.0)) + 32);
+			return this;
+		}
+		
+		public PlanetBuilder setFilePath(String filePath){
+			this.filePath.setValue(filePath);
 			return this;
 		}
 		

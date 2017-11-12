@@ -7,6 +7,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import Models.Planet;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class planetTestCases {
 	
 	@Test
@@ -49,4 +53,35 @@ public class planetTestCases {
 		assertEquals(false,PlanetValidators.validatePlanetMoons("-5"));
 	}
 	
+	
+	@Test
+	public void testLoadPlanet(){
+		Planet planet = new Planet();
+		planet.loadPlanet();
+		Planet testingPlanet = new Planet.PlanetBuilder(planet.getPlanetName())
+					.setPlanetDiameter(Double.toString(planet.getPlanetDiameterKm()))
+					.setPlanetTemperature(Double.toString(planet.getPlanetSurfaceTempC()))
+					.setNumberOfMoons(Integer.toString(planet.getNumMoons()))
+							.build();
+		assertEquals(planet.getPlanetName(), testingPlanet.getPlanetName());
+		assertEquals(planet.getPlanetDiameterKm(), testingPlanet.getPlanetDiameterKm());
+		assertEquals(planet.getPlanetSurfaceTempC(), testingPlanet.getPlanetSurfaceTempC());
+		assertEquals(planet.getNumMoons(), testingPlanet.getNumMoons());
+
+	}
+	
+	@Test
+	public void testSavePlane(){
+		Planet savedPlanet = new Planet.PlanetBuilder("Neptune")
+				.setPlanetDiameter("200")
+				.setPlanetTemperature("20")
+				.setNumberOfMoons("5")
+				.setFilePath("images/no_images.png")
+				.build();
+		savedPlanet.savePlanet();
+		Planet loadedPlanet = new Planet();
+		loadedPlanet.loadPlanet();
+		assertEquals(savedPlanet.getPlanetName(), loadedPlanet.getPlanetName());
+	}
+
 }

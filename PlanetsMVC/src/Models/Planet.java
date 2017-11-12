@@ -1,15 +1,17 @@
 package Models;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
+import Exceptions.InvalidDiameterException;
+import Exceptions.InvalidMoonException;
+import Exceptions.InvalidNameException;
+import Exceptions.InvalidTemperatureException;
+import planet.detail.PlanetValidators;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
 public class Planet{
 	PlanetHelper helper = new PlanetHelper();
+	PlanetValidators validate = new PlanetValidators();
+	
 	Image planetImage;
 	SimpleStringProperty planetName;
 	SimpleDoubleProperty planetDiameterKm;
@@ -61,26 +63,25 @@ public class Planet{
 	}
 
 	public void setPlanetName(String planetName) {
-		if (!isValidName(planetName))
-			throw new InvalidPlanetException("Invalid Planet Name");
+		if (!validate.validatePlanetname(planetName))
+			throw new InvalidNameException();
 		this.planetName.setValue(planetName);
 	}
 
 	public void setPlanetDiameterKm(String diameter) {
-	    if(!isValidDiameterKM(diameter)) 
-		throw new InvalidPlanetException("Invalid Planet Diameter in KM");
-		this.planetDiameterKm.setValue(Integer.parseInt(diameter));
+	    if(!validate.validatePlanetDiameter(diameter)) 
+	    	throw new InvalidDiameterException();
+		this.planetDiameterKm.setValue(Double.parseDouble(diameter));
 		setPlanetDiameterM();
 	}
-
 
 	public void setPlanetDiameterM() {
 		this.planetDiameterM.setValue(this.planetDiameterKm.getValue()*0.621371);
 	}
 
 	public void setPlanetSurfaceTempC(String celcius) {
-	    	if(!isValidTempC(celcius)) 
-			throw new InvalidPlanetException("Invalid Planet Temperature in C");
+	    	if(!validate.validPlanetTemperature(celcius)) 
+	    		throw new InvalidTemperatureException();
 	    	this.meanSurfaceTempC.setValue(Double.parseDouble(celcius));
 	    	setPlanetSurfaceTempF();
 	}
@@ -90,8 +91,8 @@ public class Planet{
 	}
 
 	public void setNumMoons(String moonCount) {
-	    if(!isValidNumMoons(moonCount))
-		throw new InvalidPlanetException("Invalid Number of Moons");
+	    if(!validate.validatePlanetMoons(moonCount))
+		throw new InvalidMoonException();
 		this.numMoons.setValue(Integer.parseInt(moonCount));
 	}
 
@@ -124,44 +125,21 @@ public class Planet{
 	    	    return true;
 		return false;
 	}
-	
-	private boolean isValidDiameterKM(String diameter) {
-	    if(diameter.matches("^[0-9]+")) {
-		int intDiameter = Integer.parseInt(diameter);
-		if(intDiameter >= 0 && intDiameter <= 200000)
-		    return true;
-	    }
-	    return false;
-	}
-	
-	private boolean isValidTempC(String temperature) {
-	    if(temperature.matches("^[0-9]+")) {
-		Double intTemp = Double.parseDouble(temperature);
-		if(intTemp >= -273.15 && intTemp <= 500.0)
-		    return true;
-	    }
-	    return false;
-	}
-	
-	private boolean isValidNumMoons(String numMoons) {
-	    if(numMoons.matches("^[0-9]+")) {
-	    	int intMoonCount = Integer.parseInt(numMoons);
-	    	if(intMoonCount >= 0 && intMoonCount <= 1000)
-		    return true;
-	    }
-	    return false;
-	}
 
-	public StringProperty firstNameProperty() {
-		return planetName;
-	}
+	public StringProperty firstNameProperty() {	return planetName; }
 
-	public DoubleProperty diameterMProperty() {
-	    return planetDiameterM;
-	}
+	public DoubleProperty diameterKMProperty() { return planetDiameterKm; }
+	
+	public DoubleProperty diameterMProperty() { return planetDiameterM;	}
 
-	public DoubleProperty tempFProperty() {
-	    return meanSurfaceTempF;
+	public DoubleProperty tempCProperty() { return meanSurfaceTempC; }
+	
+	public DoubleProperty tempFProperty() { return meanSurfaceTempF; } 
+	
+	public IntegerProperty numMoonsProperty(){ return numMoons;	}
+	
+	public void printData(){
+		System.out.println(planetName + " " + planetDiameterM + " " + planetDiameterKm);
 	}
 
 }

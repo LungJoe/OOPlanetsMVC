@@ -31,11 +31,18 @@ public class PlanetHelper{
 		
 		planet.setPlanetName(data[0]);
 		planet.setPlanetDiameterKm(data[1]);
+		System.out.println("Set km to: " + planet.getPlanetDiameterKm());
 		planet.setPlanetDiameterM();
 		planet.setPlanetSurfaceTempC(data[3]);
 		planet.setPlanetSurfaceTempF();
 		planet.setNumMoons(data[5]);
 		
+	}
+	
+	private void printPlanetData(String[] str){
+		for(int i = 0; i < str.length; i++){
+			System.out.println(str[i]);
+		}
 	}
 	public void savePlanet(Planet planet){
 		ArrayList<String> planetData = convertPlanetDataToArrayList(planet);
@@ -53,7 +60,7 @@ public class PlanetHelper{
 			writer.flush();
 			writer.close();
 		}catch(Exception e){}
-		
+			
 	}
 	
 	public void loadPlanet(Planet planet){
@@ -65,9 +72,14 @@ public class PlanetHelper{
 			reader = new BufferedReader(new FileReader("PlanetFile.csv"));
 			line = reader.readLine();
 			planetData = line.split(COMMA_DELIMITER);
-			updatePlanetObject(planet, planetData);
+			printPlanetData(planetData);
 			reader.close();
-		}catch(Exception e){}
+			
+			updatePlanetObject(planet, planetData);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -41,7 +41,7 @@ public class PlanetController implements Initializable {
 	@FXML private Label fancyPlanetName;
 	
 	private Stage stage;
-	private Planet planet;
+	private Planet planet = new Planet();
 	private ExceptionHandler handler;
 	
 	

@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 
 public class Planet{
 	PlanetHelper helper = new PlanetHelper();
-	PlanetValidators validate = new PlanetValidators();
+	static PlanetValidators validate = new PlanetValidators();
 	
 	Image planetImage;
 	SimpleStringProperty planetName;
@@ -31,21 +31,13 @@ public class Planet{
 		
 	}
 	
-	public Planet(String planetName, Double planetDiameterKm, Double planetDiameterM, Double meanSurfaceTempC, Double meanSurfaceTempF, String numMoons) {
-		this.planetName = new SimpleStringProperty();
-		this.planetDiameterKm = new SimpleDoubleProperty();
-		this.planetDiameterM = new SimpleDoubleProperty();
-		this.meanSurfaceTempC = new SimpleDoubleProperty();
-		this.meanSurfaceTempF = new SimpleDoubleProperty();
-		this.numMoons = new SimpleIntegerProperty();
-
-		setPlanetName(planetName);
-		setPlanetDiameterKm(planetDiameterKm.toString());
-		setPlanetDiameterM();
-		setPlanetSurfaceTempC(meanSurfaceTempC.toString());
-		setPlanetSurfaceTempF();
-		setNumMoons(numMoons);
-
+	public Planet(PlanetBuilder planetBuilder) {
+		this.planetName = planetBuilder.planetName;
+		this.planetDiameterKm = planetBuilder.planetDiameterKm;
+		this.planetDiameterM = planetBuilder.planetDiameterM;
+		this.meanSurfaceTempC = planetBuilder.meanSurfaceTempC;
+		this.meanSurfaceTempF = planetBuilder.meanSurfaceTempF;
+		this.numMoons = planetBuilder.numMoons;
 	}
 
 	public void savePlanet() {
@@ -65,13 +57,13 @@ public class Planet{
 	}
 
 	public void setPlanetName(String planetName) {
-		if (!validate.validatePlanetname(planetName))
+		if (!PlanetValidators.validatePlanetname(planetName))
 			throw new InvalidNameException();
 		this.planetName.setValue(planetName);
 	}
 
 	public void setPlanetDiameterKm(String diameter) {
-	    if(!validate.validatePlanetDiameter(diameter)) 
+	    if(!PlanetValidators.validatePlanetDiameter(diameter)) 
 	    	throw new InvalidDiameterException();
 		this.planetDiameterKm.setValue(Double.parseDouble(diameter));
 		setPlanetDiameterM();
@@ -82,7 +74,7 @@ public class Planet{
 	}
 
 	public void setPlanetSurfaceTempC(String celcius) {
-	    	if(!validate.validPlanetTemperature(celcius)) 
+	    	if(!PlanetValidators.validPlanetTemperature(celcius)) 
 	    		throw new InvalidTemperatureException();
 	    	this.meanSurfaceTempC.setValue(Double.parseDouble(celcius));
 	    	setPlanetSurfaceTempF();
@@ -93,7 +85,7 @@ public class Planet{
 	}
 
 	public void setNumMoons(String moonCount) {
-	    if(!validate.validatePlanetMoons(moonCount))
+	    if(!PlanetValidators.validatePlanetMoons(moonCount))
 		throw new InvalidMoonException();
 		this.numMoons.setValue(Integer.parseInt(moonCount));
 	}
@@ -144,4 +136,48 @@ public class Planet{
 		System.out.println(planetName + " " + planetDiameterM + " " + planetDiameterKm);
 	}
 
+	public static class PlanetBuilder{
+		
+		private	Image planetImage;
+		private SimpleStringProperty planetName = new SimpleStringProperty();
+		private SimpleStringProperty filePath = new SimpleStringProperty();
+		private SimpleDoubleProperty planetDiameterKm = new SimpleDoubleProperty();
+		private SimpleDoubleProperty planetDiameterM = new SimpleDoubleProperty();
+		private SimpleDoubleProperty meanSurfaceTempC = new SimpleDoubleProperty();
+		private SimpleDoubleProperty meanSurfaceTempF = new SimpleDoubleProperty();
+		private SimpleIntegerProperty numMoons = new SimpleIntegerProperty();
+		
+		public PlanetBuilder(String planetName){
+			if (!PlanetValidators.validatePlanetname(planetName))
+				throw new InvalidNameException();
+			this.planetName.setValue(planetName);
+		}
+		
+		public PlanetBuilder setPlanetDiameter(String planetDiameter){
+		    if(!PlanetValidators.validatePlanetDiameter(planetDiameter)) 
+		    	throw new InvalidDiameterException();
+			this.planetDiameterKm.setValue(Double.parseDouble(planetDiameter));
+			this.planetDiameterM.setValue(this.planetDiameterKm.getValue()*0.621371);
+			return this;
+		}
+		
+		public PlanetBuilder setPlanetTemperature(String planetTemperature){
+	    	if(!PlanetValidators.validPlanetTemperature(planetTemperature)) 
+	    		throw new InvalidTemperatureException();
+	    	this.meanSurfaceTempC.setValue(Double.parseDouble(planetTemperature));
+			this.meanSurfaceTempF.setValue((this.meanSurfaceTempC.getValue() * (9.0/5.0)) + 32);
+			return this;
+		}
+		
+		public PlanetBuilder setNumberOfMoons(String planetMoonCount){
+		    if(!PlanetValidators.validatePlanetMoons(planetMoonCount))
+				throw new InvalidMoonException();
+			this.numMoons.setValue(Integer.parseInt(planetMoonCount));
+			return this;
+		}
+		
+		public Planet build(){
+			return new Planet(this);
+		}
+	}
 }

@@ -17,7 +17,7 @@ public class PlanetValidators {
 	private static final int MIN_MOONS  = 0;
 	private static final int MAX_MOONS = 1000;
 	
-	public boolean validatePlanetname(String planetName){
+	public static boolean validatePlanetname(String planetName){
 		Pattern validNameCharacters = Pattern.compile("[^A-Za-z0-9 .-]");
 		Matcher invalidName = validNameCharacters.matcher(planetName);
 		
@@ -29,7 +29,7 @@ public class PlanetValidators {
 		return true;
 	}
 	
-	public boolean validatePlanetDiameter(String planetDiameter){
+	public static boolean validatePlanetDiameter(String planetDiameter){
 		try{
 			double intDiameter = Double.parseDouble(planetDiameter);
 			if(intDiameter >= MIN_DIAMETER && intDiameter <= MAX_DIAMETER)
@@ -38,7 +38,7 @@ public class PlanetValidators {
 		}catch(Exception e){ return false; }
 	}
 	
-	public boolean validPlanetTemperature(String planetTemperature){
+	public static boolean validPlanetTemperature(String planetTemperature){
 		try{
 	    	Double intTemp = Double.parseDouble(planetTemperature);
 	    	if(intTemp >= MIN_DEGREES && intTemp <= MAX_DEGREES)
@@ -47,7 +47,7 @@ public class PlanetValidators {
 	    }catch(Exception e){return false;}
 	}
 	
-	public boolean validatePlanetMoons(String planetMoonAmount){
+	public static boolean validatePlanetMoons(String planetMoonAmount){
 		try{
 	    	int intMoonCount = Integer.parseInt(planetMoonAmount);
 	    	if(intMoonCount >= MIN_MOONS && intMoonCount <= MAX_MOONS)

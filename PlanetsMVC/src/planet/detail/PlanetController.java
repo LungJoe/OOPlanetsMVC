@@ -59,15 +59,17 @@ public class PlanetController implements Initializable {
 	
 	@FXML
 	void selectImage(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
-		File file = fileChooser.showOpenDialog(stage);
-		//new
 		try {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Resource File");
+			File file = fileChooser.showOpenDialog(stage);
+			//new
+		
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             planetImage.setImage(image);
-        } catch (IOException ex) {
+            planet.setImageFilePath(file.getAbsolutePath());
+        } catch (Exception ex) {
             
         }
 	}
@@ -83,6 +85,7 @@ public class PlanetController implements Initializable {
     	if(alert.getResult() != null){
     		planet.loadPlanet();
     		updateTextBoxes();
+    		updateImage();
     		planet.printData();
     	}
 	}
@@ -93,6 +96,8 @@ public class PlanetController implements Initializable {
 			planet.setPlanetDiameterKm(planetDiameterKM.getText());
 			planet.setPlanetSurfaceTempC(planetMeanSurfaceTempC.getText());
 			planet.setNumMoons(planetNumberOfMoons.getText());
+			planet.setPlanetImage(planetImage.getImage());
+			System.out.println(planet.getImageFilePath());
 		}catch(Exception e){
 			handler.handlePlanetException(e);
 		}
@@ -103,6 +108,19 @@ public class PlanetController implements Initializable {
 		planetDiameterKM.setText(Double.toString(planet.getPlanetDiameterKm()));
 		planetMeanSurfaceTempC.setText(Double.toString(planet.getPlanetSurfaceTempC()));
 		planetNumberOfMoons.setText(Integer.toString(planet.getNumMoons()));
+	}
+	
+	private void updateImage(){
+		try {
+			File file = new File(planet.getImageFilePath());
+			//new
+		
+            BufferedImage bufferedImage = ImageIO.read(file);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            planetImage.setImage(image);
+        } catch (Exception ex) {
+            
+        }
 	}
 	
     //@Override

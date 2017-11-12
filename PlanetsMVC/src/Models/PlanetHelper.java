@@ -25,6 +25,7 @@ public class PlanetHelper{
 		planetData.add(Double.toString(planet.getPlanetSurfaceTempC()));
 		planetData.add(Double.toString(planet.getPlanetSurfaceTempF()));
 		planetData.add(Integer.toString(planet.getNumMoons()));
+		planetData.add(planet.getImageFilePath());
 		//filepath to image goes here.
 		//planetData.add();
 		
@@ -39,6 +40,7 @@ public class PlanetHelper{
 		planet.setPlanetSurfaceTempC(data[3]);
 		planet.setPlanetSurfaceTempF();
 		planet.setNumMoons(data[5]);
+		planet.setImageFilePath(data[6]);
 		
 	}
 	

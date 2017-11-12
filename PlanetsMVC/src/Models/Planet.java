@@ -28,7 +28,7 @@ public class Planet{
 		this.meanSurfaceTempC = new SimpleDoubleProperty();
 		this.meanSurfaceTempF = new SimpleDoubleProperty();
 		this.numMoons = new SimpleIntegerProperty();
-		
+		this.filePath = new SimpleStringProperty();
 	}
 	
 	public Planet(PlanetBuilder planetBuilder) {
@@ -55,7 +55,14 @@ public class Planet{
 	public void setPlanetImage(Image planetImage) {
 		this.planetImage = planetImage;
 	}
-
+	
+	public String getImageFilePath(){
+		return filePath.getValue();
+	}
+	
+	public void setImageFilePath(String filePath){
+		this.filePath.setValue(filePath);
+	}
 	public void setPlanetName(String planetName) {
 		if (!PlanetValidators.validatePlanetname(planetName))
 			throw new InvalidNameException();

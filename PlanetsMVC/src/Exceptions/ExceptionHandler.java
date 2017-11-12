@@ -11,6 +11,7 @@ public class ExceptionHandler {
 		else if(e instanceof InvalidDiameterException){ diameterException(e);}
 		else if(e instanceof InvalidTemperatureException){ tempException(e); }
 		else if(e instanceof InvalidMoonException){ moonException(e); }
+
 	}
 	
 	private void nameException(Exception e){
@@ -46,6 +47,17 @@ public class ExceptionHandler {
     	alert.setHeaderText("The Number of Moons you specified is invalid. See below for requirements.");
     	alert.setContentText("Planet number of moons may only contain numbers.\n"
     		+ "Planet number of moons must be between 0 and 1000.");
+    	//System.out.println(alert.getResult());
+    	alert.showAndWait();
+    	System.out.println(alert.getResult());
+	}
+	
+	private void fileException(Exception e){
+		Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle(e.getMessage());
+    	alert.setHeaderText("A planet file already exists.");
+    	alert.setContentText("Continuing will overwrite the preexisting file.");
+    	
     	alert.showAndWait();
 	}
 }

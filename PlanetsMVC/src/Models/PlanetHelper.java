@@ -1,9 +1,12 @@
 package Models;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+
+import Exceptions.ExceptionHandler;
 
 
 
@@ -11,7 +14,7 @@ import java.util.ArrayList;
 
 public class PlanetHelper{
 	private static final String COMMA_DELIMITER = ",";
-
+	private ExceptionHandler handler = new ExceptionHandler();
 	
 	
 	public ArrayList<String> convertPlanetDataToArrayList(Planet planet){
@@ -47,16 +50,18 @@ public class PlanetHelper{
 	public void savePlanet(Planet planet){
 		ArrayList<String> planetData = convertPlanetDataToArrayList(planet);
 		FileWriter writer;
+		File file = new File("PlanetFile.csv");
 		
 		try {
-			writer = new FileWriter("PlanetFile.csv");
+
+			writer = new FileWriter(file);
 
 			for(int i = 0; i < planetData.size(); i++){
 				writer.append(planetData.get(i));
 				if(i != planetData.size() -1)
 					writer.append(COMMA_DELIMITER);
 			}
-
+			System.out.println("File updated");
 			writer.flush();
 			writer.close();
 		}catch(Exception e){}

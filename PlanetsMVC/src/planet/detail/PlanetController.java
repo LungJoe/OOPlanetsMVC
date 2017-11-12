@@ -3,6 +3,7 @@ package planet.detail;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import Exceptions.ExceptionHandler;
 import Models.Planet;
 import javafx.beans.value.ChangeListener;
@@ -10,9 +11,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -57,9 +60,17 @@ public class PlanetController implements Initializable {
 
 	@FXML
 	void loadPlanet(ActionEvent event) {
-		planet.loadPlanet();
-		updateTextBoxes();
-		planet.printData();
+		Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("CAUTION");
+    	alert.setHeaderText("Loading a planet file will erase current data.");
+    	alert.setContentText("Contunue?");
+    	alert.showAndWait();
+
+    	if(alert.getResult() != null){
+    		planet.loadPlanet();
+    		updateTextBoxes();
+    		planet.printData();
+    	}
 	}
 
 	@FXML

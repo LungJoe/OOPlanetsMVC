@@ -14,6 +14,7 @@ public class Planet{
 	
 	Image planetImage;
 	SimpleStringProperty planetName;
+	SimpleStringProperty filePath;
 	SimpleDoubleProperty planetDiameterKm;
 	SimpleDoubleProperty planetDiameterM;
 	SimpleDoubleProperty meanSurfaceTempC;
@@ -27,6 +28,7 @@ public class Planet{
 		this.meanSurfaceTempC = new SimpleDoubleProperty();
 		this.meanSurfaceTempF = new SimpleDoubleProperty();
 		this.numMoons = new SimpleIntegerProperty();
+		
 	}
 	
 	public Planet(String planetName, Double planetDiameterKm, Double planetDiameterM, Double meanSurfaceTempC, Double meanSurfaceTempF, String numMoons) {

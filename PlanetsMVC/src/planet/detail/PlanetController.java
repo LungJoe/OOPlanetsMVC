@@ -79,9 +79,9 @@ public class PlanetController implements Initializable {
 	@FXML
 	void savePlanet(ActionEvent event) {
 		try {
-			planet.setPlanetDiameterKm(planetDiameterKM.getText());
-			planet.setPlanetSurfaceTempC(planetMeanSurfaceTempC.getText());
-			planet.setNumMoons(planetNumberOfMoons.getText());
+			planet.setPlanetDiameterKm(planetDiameterKM.getText().replaceAll(",", ""));
+			planet.setPlanetSurfaceTempC(planetMeanSurfaceTempC.getText().replaceAll(",", ""));
+			planet.setNumMoons(planetNumberOfMoons.getText().replaceAll(",", ""));
 		} catch (Exception e) {
 			handler.handlePlanetException(e);
 		}

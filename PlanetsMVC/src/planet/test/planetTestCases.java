@@ -76,7 +76,7 @@ public class planetTestCases {
 				.setPlanetDiameter("200")
 				.setPlanetTemperature("20")
 				.setNumberOfMoons("5")
-				.setFilePath("images/no_images.png")
+				.setFilePath("images\\no_image.png")
 				.build();
 		savedPlanet.savePlanet();
 		Planet loadedPlanet = new Planet();

@@ -112,7 +112,16 @@ public class PlanetController implements Initializable {
 	
 	private void updateImage(){
 		try {
-			File file = new File(planet.getImageFilePath());
+			File file;
+			if(planet.getImageFilePath() == null){
+				file = new File("images\\no_image.png");
+			}
+			else if(planet.getImageFilePath().equals("default")){
+				file = new File("images\\neptune.png");
+			}
+			else{
+				file = new File(planet.getImageFilePath());
+			}
 			//new
 		
             BufferedImage bufferedImage = ImageIO.read(file);
@@ -131,6 +140,7 @@ public class PlanetController implements Initializable {
 		//firstName.textProperty().bind(person.firstNameProperty());
     	//but binding is ok with immutable UI field data types like Label
 		
+		updateImage();
 		planetDiameterKM.setText("");
 		planetDiameterM.setText("");
 		planetMeanSurfaceTempC.setText("");

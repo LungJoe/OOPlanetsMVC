@@ -71,17 +71,19 @@ public class planetTestCases {
 	}
 	
 	@Test
-	public void testSavePlane(){
+	public void testSavePlanet(){
 		Planet savedPlanet = new Planet.PlanetBuilder("Neptune")
 				.setPlanetDiameter("200")
 				.setPlanetTemperature("20")
 				.setNumberOfMoons("5")
-				.setFilePath("images\\no_image.png")
+				.setFilePath("//images/no_images.png")
 				.build();
 		savedPlanet.savePlanet();
 		Planet loadedPlanet = new Planet();
 		loadedPlanet.loadPlanet();
 		assertEquals(savedPlanet.getPlanetName(), loadedPlanet.getPlanetName());
+		assertEquals(savedPlanet.getPlanetDiameterKm(), loadedPlanet.getPlanetDiameterKm());
+		assertEquals(savedPlanet.getPlanetSurfaceTempC(), loadedPlanet.getPlanetSurfaceTempC());
+		assertEquals(savedPlanet.getNumMoons(), loadedPlanet.getNumMoons());
 	}
-
 }

@@ -12,7 +12,6 @@ public class Planet{
 	PlanetHelper helper = new PlanetHelper();
 	static PlanetValidators validate = new PlanetValidators();
 	
-	Image planetImage;
 	SimpleStringProperty planetName;
 	SimpleStringProperty filePath;
 	SimpleDoubleProperty planetDiameterKm;
@@ -46,14 +45,6 @@ public class Planet{
 
 	public void loadPlanet() {
 		helper.loadPlanet(this);
-	}
-
-	public Image getPlanetImage() {
-		return planetImage;
-	}
-
-	public void setPlanetImage(Image planetImage) {
-		this.planetImage = planetImage;
 	}
 	
 	public String getImageFilePath(){

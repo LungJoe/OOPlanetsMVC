@@ -87,7 +87,6 @@ public class PlanetController implements Initializable {
 			planet.setPlanetDiameterKm(planetDiameterKM.getText());
 			planet.setPlanetSurfaceTempC(planetMeanSurfaceTempC.getText());
 			planet.setNumMoons(planetNumberOfMoons.getText());
-			planet.setPlanetImage(planetImage.getImage());
 		}catch(Exception e){
 			handler.handlePlanetException(e);
 		}

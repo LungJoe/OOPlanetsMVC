@@ -61,21 +61,23 @@ public class planetTestCases {
 		assertEquals(planet.getPlanetSurfaceTempC(), testingPlanet.getPlanetSurfaceTempC());
 		assertEquals(planet.getNumMoons(), testingPlanet.getNumMoons());
 	}
-	
+
 	@Test
-	public void testSavePlanet(){
-		Planet savedPlanet = new Planet.PlanetBuilder("Neptune")
+	public void testCreatePlanet(){
+		Planet newPlanet = new Planet.PlanetBuilder("Neptune")
 				.setPlanetDiameter("200")
 				.setPlanetTemperature("20")
 				.setNumberOfMoons("5")
-				.setFilePath("//images/no_images.png")
+				.setFilePath("hello")
 				.build();
-		savedPlanet.savePlanet();
-		Planet loadedPlanet = new Planet();
-		loadedPlanet.loadPlanet();
-		assertEquals(savedPlanet.getPlanetName(), loadedPlanet.getPlanetName());
-		assertEquals(savedPlanet.getPlanetDiameterKm(), loadedPlanet.getPlanetDiameterKm());
-		assertEquals(savedPlanet.getPlanetSurfaceTempC(), loadedPlanet.getPlanetSurfaceTempC());
-		assertEquals(savedPlanet.getNumMoons(), loadedPlanet.getNumMoons());
+		Planet testingPlanet = new Planet.PlanetBuilder(newPlanet.getPlanetName())
+				.setPlanetDiameter(Double.toString(newPlanet.getPlanetDiameterKm()))
+				.setPlanetTemperature(Double.toString(newPlanet.getPlanetSurfaceTempC()))
+				.setNumberOfMoons(Integer.toString(newPlanet.getNumMoons()))
+						.build();
+		assertEquals(newPlanet.getPlanetName(), testingPlanet.getPlanetName());
+		assertEquals(newPlanet.getPlanetDiameterKm(), testingPlanet.getPlanetDiameterKm());
+		assertEquals(newPlanet.getPlanetSurfaceTempC(), testingPlanet.getPlanetSurfaceTempC());
+		assertEquals(newPlanet.getNumMoons(), testingPlanet.getNumMoons());
 	}
 }

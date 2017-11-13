@@ -6,7 +6,6 @@ import Exceptions.InvalidNameException;
 import Exceptions.InvalidTemperatureException;
 import planet.detail.PlanetValidators;
 import javafx.beans.property.*;
-import javafx.scene.image.Image;
 
 public class Planet{
 	PlanetHelper helper = new PlanetHelper();
@@ -47,10 +46,6 @@ public class Planet{
 		helper.loadPlanet(this);
 	}
 	
-	public String getImageFilePath(){
-		return filePath.getValue();
-	}
-	
 	public void setImageFilePath(String filePath){
 		this.filePath.setValue(filePath);
 	}
@@ -88,6 +83,10 @@ public class Planet{
 		this.numMoons.setValue(Integer.parseInt(moonCount));
 	}
 
+	public String getImageFilePath(){
+		return filePath.getValue();
+	}
+	
 	public String getPlanetName() {
 		return planetName.getValue();
 	}

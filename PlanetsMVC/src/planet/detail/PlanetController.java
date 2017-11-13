@@ -69,7 +69,7 @@ public class PlanetController implements Initializable {
 		alert.setContentText("Contunue?");
 		alert.showAndWait();
 
-		if (alert.getResult() != null) {
+		if (alert.getResult() != null){
 			planet.loadPlanet();
 			updateTextBoxes();
 			updateImage();

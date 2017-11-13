@@ -63,7 +63,6 @@ public class PlanetController implements Initializable {
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             planetImage.setImage(image);
-            planet.setImageFilePath(file.getAbsolutePath());
         } catch (Exception ex) {}
 	}
 
@@ -89,7 +88,6 @@ public class PlanetController implements Initializable {
 			planet.setPlanetSurfaceTempC(planetMeanSurfaceTempC.getText());
 			planet.setNumMoons(planetNumberOfMoons.getText());
 			planet.setPlanetImage(planetImage.getImage());
-			System.out.println(planet.getImageFilePath());
 		}catch(Exception e){
 			handler.handlePlanetException(e);
 		}
@@ -117,22 +115,19 @@ public class PlanetController implements Initializable {
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             planetImage.setImage(image);
+            planet.setImageFilePath(file.getAbsolutePath());
         } catch (Exception ex) {}
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {
 		updateImage();
-		planetDiameterKM.setText("");
-		planetDiameterM.setText("");
-		planetMeanSurfaceTempC.setText("");
-		planetMeanSurfaceTempF.setText("");
-		planetNumberOfMoons.setText("");
+		updateTextBoxes();
 		
     	fancyPlanetName.textProperty().bind(planet.firstNameProperty());
     	planetDiameterM.textProperty().bind(planet.diameterMProperty().asString());
     	planetMeanSurfaceTempF.textProperty().bind(planet.tempFProperty().asString());	
     	
-    	planetName.setText(planet.getPlanetName());
+    	
  
     	planetName.textProperty().addListener(new PlanetNameChangeListener());
     	planetDiameterKM.textProperty().addListener(new PlanetDiameterChangeListener());

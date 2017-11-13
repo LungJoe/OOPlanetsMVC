@@ -138,10 +138,6 @@ public class Planet{
 	public DoubleProperty tempFProperty() { return meanSurfaceTempF; } 
 	
 	public IntegerProperty numMoonsProperty(){ return numMoons;	}
-	
-	public void printData(){
-		System.out.println(planetName + " " + planetDiameterM + " " + planetDiameterKm);
-	}
 
 	public static class PlanetBuilder{
 		

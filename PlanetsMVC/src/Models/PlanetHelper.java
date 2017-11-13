@@ -9,7 +9,6 @@ import Exceptions.ExceptionHandler;
 
 public class PlanetHelper{
 	private static final String COMMA_DELIMITER = ",";
-	private ExceptionHandler handler = new ExceptionHandler();	
 	
 	public ArrayList<String> convertPlanetDataToArrayList(Planet planet){
 		ArrayList<String> planetData = new ArrayList<String>();

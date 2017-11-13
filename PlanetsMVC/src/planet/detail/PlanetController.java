@@ -79,7 +79,6 @@ public class PlanetController implements Initializable {
     		planet.loadPlanet();
     		updateTextBoxes();
     		updateImage();
-    		planet.printData();
     	}
 	}
 

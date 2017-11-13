@@ -5,12 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-
 import Exceptions.ExceptionHandler;
-
-
-
-
 
 public class PlanetHelper{
 	private static final String COMMA_DELIMITER = ",";
@@ -54,7 +49,6 @@ public class PlanetHelper{
 			writer.flush();
 			writer.close();
 		}catch(Exception e){}
-			
 	}
 	
 	public void loadPlanet(Planet planet){
@@ -73,5 +67,4 @@ public class PlanetHelper{
 			e.printStackTrace();
 		}
 	}
-	
 }

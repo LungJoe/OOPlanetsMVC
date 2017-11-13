@@ -1,15 +1,9 @@
 package planet.test;
 
-
 import planet.detail.PlanetValidators;
-
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import Models.Planet;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class planetTestCases {
 	
@@ -53,7 +47,6 @@ public class planetTestCases {
 		assertEquals(false,PlanetValidators.validatePlanetMoons("-5"));
 	}
 	
-	
 	@Test
 	public void testLoadPlanet(){
 		Planet planet = new Planet();
@@ -67,7 +60,6 @@ public class planetTestCases {
 		assertEquals(planet.getPlanetDiameterKm(), testingPlanet.getPlanetDiameterKm());
 		assertEquals(planet.getPlanetSurfaceTempC(), testingPlanet.getPlanetSurfaceTempC());
 		assertEquals(planet.getNumMoons(), testingPlanet.getNumMoons());
-
 	}
 	
 	@Test

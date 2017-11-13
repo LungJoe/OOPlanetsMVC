@@ -2,12 +2,9 @@ package planet.detail;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
-
 import Exceptions.ExceptionHandler;
 import Models.Planet;
 import javafx.beans.value.ChangeListener;
@@ -50,7 +47,6 @@ public class PlanetController implements Initializable {
 	private Planet planet = new Planet();
 	private ExceptionHandler handler;
 	
-	
 	public PlanetController(Stage stage, Planet planet) {
 		this.stage = stage;
 		this.planet = planet;
@@ -63,15 +59,12 @@ public class PlanetController implements Initializable {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
 			File file = fileChooser.showOpenDialog(stage);
-			//new
-		
+
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             planetImage.setImage(image);
             planet.setImageFilePath(file.getAbsolutePath());
-        } catch (Exception ex) {
-            
-        }
+        } catch (Exception ex) {}
 	}
 
 	@FXML
@@ -125,12 +118,9 @@ public class PlanetController implements Initializable {
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             planetImage.setImage(image);
-        } catch (Exception ex) {
-            
-        }
+        } catch (Exception ex) {}
 	}
-	
-    //@Override
+
 	public void initialize(URL location, ResourceBundle resources) {
 		updateImage();
 		planetDiameterKM.setText("");
@@ -161,7 +151,6 @@ public class PlanetController implements Initializable {
 				planetName.setText(oldValue);
 			}
 		}
-    	
     }
     private class PlanetDiameterChangeListener implements ChangeListener<String> {
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

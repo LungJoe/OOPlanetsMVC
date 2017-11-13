@@ -2,7 +2,6 @@ package planet.detail;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.beans.property.SimpleStringProperty;
 
 public class PlanetValidators {
 	private static final int MIN_NAME_LENGTH = 1;

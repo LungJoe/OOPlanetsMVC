@@ -7,8 +7,8 @@ import java.text.NumberFormat;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import Exceptions.ExceptionHandler;
+import Exceptions.InvalidNameException;
 import Models.Planet;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -57,8 +57,8 @@ public class PlanetController implements Initializable {
 			BufferedImage bufferedImage = ImageIO.read(file);
 			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
 			planetImage.setImage(image);
-		} catch (Exception ex) {
-		}
+			planet.setImageFilePath(file.getAbsolutePath());
+		} catch (Exception ex) {}
 	}
 
 	@FXML
@@ -79,6 +79,8 @@ public class PlanetController implements Initializable {
 	@FXML
 	void savePlanet(ActionEvent event) {
 		try {
+			if(planetName.getText().equals(""))
+				throw new InvalidNameException();
 			planet.setPlanetDiameterKm(planetDiameterKM.getText().replaceAll(",", ""));
 			planet.setPlanetSurfaceTempC(planetMeanSurfaceTempC.getText().replaceAll(",", ""));
 			planet.setNumMoons(planetNumberOfMoons.getText().replaceAll(",", ""));
@@ -100,40 +102,38 @@ public class PlanetController implements Initializable {
 			File file;
 			if (planet.getImageFilePath() == null) {
 				file = new File("images\\no_image.png");
-			} else if (planet.getImageFilePath().equals("default")) {
-				file = new File("images\\neptune.png");
-			} else {
+			}
+			else{
 				file = new File(planet.getImageFilePath());
 			}
 			BufferedImage bufferedImage = ImageIO.read(file);
 			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
 			planetImage.setImage(image);
 			planet.setImageFilePath(file.getAbsolutePath());
-		} catch (Exception ex) {
-		}
+		} catch (Exception ex) {}
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {
 		updateImage();
-		updateTextBoxes();
 
 		fancyPlanetName.textProperty().bind(planet.firstNameProperty());
-		planetDiameterM.textProperty().bind(planet.diameterMProperty().asString("%,.2f"));
+		planetDiameterM.textProperty().bind(planet.diameterMProperty().asString("%,.1f"));
 		planetMeanSurfaceTempF.textProperty().bind(planet.tempFProperty().asString());
 		planetName.textProperty().addListener(new PlanetNameChangeListener());
 		planetDiameterKM.textProperty().addListener(new PlanetDiameterChangeListener());
 		planetMeanSurfaceTempC.textProperty().addListener(new PlanetSurfaceTempListener());
 		planetNumberOfMoons.textProperty().addListener(new PlanetMoonCountListener());
+		
+		planetDiameterKM.setText("");		
 	}
 
 	private class PlanetNameChangeListener implements ChangeListener<String> {
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+			if(newValue.equals(""))
+				planet.firstNameProperty().set("");
 			try {
 				planet.setPlanetName(newValue);
-			} catch (Exception e) {
-				handler.handlePlanetException(e);
-				planetName.setText(oldValue);
-			}
+			} catch (Exception e) {}
 		}
 	}
 
@@ -143,10 +143,7 @@ public class PlanetController implements Initializable {
 				planet.setPlanetDiameterKm(newValue.replaceAll(",", ""));
 				Double doubleDiameter = Double.parseDouble(newValue.replaceAll(",", ""));
 				planetDiameterKM.setText(NumberFormat.getInstance().format(doubleDiameter));
-			} catch (Exception e) {
-				handler.handlePlanetException(e);
-				planetDiameterKM.setText(oldValue);
-			}
+			}catch (Exception e) {}
 		}
 	}
 
@@ -154,10 +151,7 @@ public class PlanetController implements Initializable {
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setPlanetSurfaceTempC(newValue);
-			} catch (Exception e) {
-				handler.handlePlanetException(e);
-				planetMeanSurfaceTempC.setText(oldValue);
-			}
+			} catch (Exception e) {}
 		}
 	}
 
@@ -167,10 +161,7 @@ public class PlanetController implements Initializable {
 				planet.setNumMoons(newValue.replaceAll(",", ""));
 				Double moonCount = Double.parseDouble(newValue.replaceAll(",", ""));
 				planetNumberOfMoons.setText(NumberFormat.getInstance().format(moonCount));
-			} catch (Exception e) {
-				handler.handlePlanetException(e);
-				planetNumberOfMoons.setText(oldValue);
-			}
+			} catch (Exception e) {}
 		}
 	}
 }

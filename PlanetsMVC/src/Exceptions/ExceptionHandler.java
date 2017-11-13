@@ -46,7 +46,6 @@ public class ExceptionHandler {
     	alert.setContentText("Planet number of moons may only contain numbers.\n"
     		+ "Planet number of moons must be between 0 and 1000.");
     	alert.showAndWait();
-    	System.out.println(alert.getResult());
 	}
 	
 	private void fileException(Exception e){

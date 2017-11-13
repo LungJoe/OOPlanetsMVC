@@ -29,7 +29,7 @@ public class PlanetHelper{
 		planet.setPlanetSurfaceTempC(data[3]);
 		planet.setPlanetSurfaceTempF();
 		planet.setNumMoons(data[5]);
-		planet.setImageFilePath(data[6]);	
+		planet.setImageFilePath(data[6]);
 	}
 	
 	public void savePlanet(Planet planet){

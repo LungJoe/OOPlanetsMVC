@@ -3,6 +3,7 @@ package planet.detail;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import Exceptions.ExceptionHandler;
@@ -140,6 +141,8 @@ public class PlanetController implements Initializable {
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setPlanetDiameterKm(newValue.replaceAll(",", ""));
+				Double doubleDiameter = Double.parseDouble(newValue.replaceAll(",", ""));
+				planetDiameterKM.setText(NumberFormat.getInstance().format(doubleDiameter));
 			} catch (Exception e) {
 				handler.handlePlanetException(e);
 				planetDiameterKM.setText(oldValue);
@@ -162,6 +165,8 @@ public class PlanetController implements Initializable {
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			try {
 				planet.setNumMoons(newValue.replaceAll(",", ""));
+				Double moonCount = Double.parseDouble(newValue.replaceAll(",", ""));
+				planetNumberOfMoons.setText(NumberFormat.getInstance().format(moonCount));
 			} catch (Exception e) {
 				handler.handlePlanetException(e);
 				planetNumberOfMoons.setText(oldValue);

@@ -3,7 +3,6 @@ package Exceptions;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-
 public class ExceptionHandler {
 	
 	public void handlePlanetException(Exception e){		

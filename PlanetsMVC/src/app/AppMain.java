@@ -1,13 +1,9 @@
 package app;
 
-import java.io.IOException;
-
 import Models.Planet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import planet.detail.PlanetController;
@@ -21,7 +17,6 @@ public class AppMain extends Application {
 	}
 	
 	//FXML startup method
-	//@Override
 	public void start(Stage primaryStage) throws Exception {
 		Planet planet = new Planet();
 		PlanetController controller = new PlanetController(primaryStage, planet);

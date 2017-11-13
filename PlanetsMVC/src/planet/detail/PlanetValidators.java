@@ -55,6 +55,4 @@ public class PlanetValidators {
 	    	return false;
 		}catch(Exception e){ return false;}
 	}
-	
-	
 }

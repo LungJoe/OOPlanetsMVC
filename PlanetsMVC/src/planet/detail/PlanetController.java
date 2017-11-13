@@ -122,8 +122,6 @@ public class PlanetController implements Initializable {
 			else{
 				file = new File(planet.getImageFilePath());
 			}
-			//new
-		
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             planetImage.setImage(image);
@@ -134,12 +132,6 @@ public class PlanetController implements Initializable {
 	
     //@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//bind model fields to view fields
-
-    	//this is nice and simple BUT it does not call the setter, so validation does not occur
-		//firstName.textProperty().bind(person.firstNameProperty());
-    	//but binding is ok with immutable UI field data types like Label
-		
 		updateImage();
 		planetDiameterKM.setText("");
 		planetDiameterM.setText("");
@@ -149,15 +141,10 @@ public class PlanetController implements Initializable {
 		
     	fancyPlanetName.textProperty().bind(planet.firstNameProperty());
     	planetDiameterM.textProperty().bind(planet.diameterMProperty().asString());
-    	planetMeanSurfaceTempF.textProperty().bind(planet.tempFProperty().asString());
+    	planetMeanSurfaceTempF.textProperty().bind(planet.tempFProperty().asString());	
     	
-    	
-    	//init first name UI field to the model data
     	planetName.setText(planet.getPlanetName());
-    	//attach a listener for when the user changes the UI field data. 
-    	//we want UI changes to go through validation and if ok then change the model data.
-    	//we can do this by simply calling our model's setter since it is already wired for validation
-    	
+ 
     	planetName.textProperty().addListener(new PlanetNameChangeListener());
     	planetDiameterKM.textProperty().addListener(new PlanetDiameterChangeListener());
     	planetMeanSurfaceTempC.textProperty().addListener(new PlanetSurfaceTempListener());
